@@ -1,0 +1,28 @@
+*{
+    cursor: pointer;
+}
+.section{
+    display: flex;
+    justify-content: space-between;
+    height: 5vh;
+    align-items: center;
+}
+.bi{
+    color: blue;
+    
+}
+.bi-trash3-fill{
+    color: red;
+}
+.fxnBtn{
+    background: none;
+    border-style: none;
+}
+
+.modal-body input{
+    float: right;
+}
+
+.selected{
+    background-color: aquamarine;
+}
