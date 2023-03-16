@@ -28,7 +28,15 @@ let arr =[{id: 1, "Chemical name": "Ammonium Persulfate", Vender: "LG Chem", Den
 {id: 4, "Chemical name": "Mono Ammonium Phosphate", Vender: "Sinopec", Density: "1597.65", Viscosity: "76.51", Packaging: "Bag", "Pack size": "105.00", Unit: "Kg", Quantity: "8183.73"},
 {id: 5, "Chemical name": "Ferric itrate", Vender: "DowDuPont", Density: "364.04", Viscosity: "14.90", Packaging: "Bag", "Pack size": "105.00", Unit: "Kg", Quantity: "4154.33"},
 {id: 6, "Chemical name": "n-Pentane", Vender: "Sinopec", Density: "4535.26", Viscosity: "66.76", Packaging: "N/A", "Pack size": "N/A", Unit: "t", Quantity: "6272.34"},
-{id: 7, "Chemical name": "Glycol Ether PM", Vender: "LG Chem", Density: "6495.18", Viscosity: "72.12", Packaging: "Bag", "Pack size": "250.00", Unit: "Kg", Quantity: "8749.54"}
+{id: 7, "Chemical name": "Ether", Vender: "LG Chem", Density: "6495.18", Viscosity: "72.12", Packaging: "Bag", "Pack size": "250.00", Unit: "Kg", Quantity: "8749.54"},
+{id: 8, "Chemical name": "Glucose", Vender: "DowDuPont", Density: "578.87", Viscosity: "17.98", Packaging: "Barrel", "Pack size": "250.00", Unit: "Kg", Quantity: "7156.39"},
+{id: 9, "Chemical name": "Methane", Vender: "LG Chem", Density: "5149.18", Viscosity: "65.32", Packaging: "Bag", "Pack size": "100.00", Unit: "L", Quantity: "8749.54"},
+{id: 10, "Chemical name": "Ethane", Vender: "Sinopec", Density: "8735.14", Viscosity: "32.87", Packaging: "Bag", "Pack size": "100.00", Unit: "Kg", Quantity: "8459.67"},
+{id: 11, "Chemical name": "Polyethene", Vender: "LG Chem", Density: "925.54", Viscosity: "22.65", Packaging: "Barrel", "Pack size": "250.00", Unit: "Kg", Quantity: "5632.14"},
+{id: 12, "Chemical name": "Ferrous sulphate", Vender: "LG Chem", Density: "6490.28", Viscosity: "81.12", Packaging: "Bag", "Pack size": "107.00", Unit: "Kg", Quantity: "7649.54"},
+{id: 13, "Chemical name": "Poly Methane", Vender: "Sinopec", Density: "3295.18", Viscosity: "12.98", Packaging: "Bag", "Pack size": "100.00", Unit: "t", Quantity: "4236.76"},
+{id: 14, "Chemical name": "Ammonium Dioxide", Vender: "LG Chem", Density: "2765.09", Viscosity: "52.12", Packaging: "Bag", "Pack size": "105.00", Unit: "Kg", Quantity: "3449.54"},
+{id: 15, "Chemical name": "Acetic Acid", Vender: "Formosa", Density: "865.87", Viscosity: "70.12", Packaging: "Bag", "Pack size": "100.00", Unit: "Kg", Quantity: "6477.09"},
 ];
 
 let selectedRow = [];
@@ -176,7 +184,7 @@ document.getElementById("saveRow").addEventListener("click", ()=>{
     arr.push(obj);
 
     createTable();
-    console.log(arr);
+    
 
     chem_id.value="";
     chemical.value ="";
