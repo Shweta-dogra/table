@@ -31,102 +31,17 @@ let arr =[{id: 1, "Chemical name": "Ammonium Persulfate", Vender: "LG Chem", Den
 {id: 7, "Chemical name": "Glycol Ether PM", Vender: "LG Chem", Density: "6495.18", Viscosity: "72.12", Packaging: "Bag", "Pack size": "250.00", Unit: "Kg", Quantity: "8749.54"}
 ];
 
-// let rowIdx = 1;
-// function createTable(){
-//     let df = document.createDocumentFragment();
-
-//     for(ele of arr){
-//         let tr = document.createElement("tr");
-//         tr.setAttribute("id", rowIdx++);
-
-//         for(val of Object.values(ele)){
-//             let td = document.createElement("td");
-//             td.innerHTML = val;
-//             tr.appendChild(td);
-//         }
-//         // let td_1 = document.createElement("td");
-//         // td_1.innerHTML = `<i class="bi bi-check-lg"></i>`;
-        
-//         df.appendChild(tr);
-//     }
-//     tableBody.appendChild(df);
-// }
-
-
-// createTable();
-
-// //add row functionality
-// document.getElementById("saveRow").addEventListener("click", ()=>{
-//     // tableBody.remove();
-//     let chemical = document.getElementById("Chem");
-//     let chem_id = document.getElementById("idx");
-//     let vendor = document.getElementById("vendor");
-//     let density = document.getElementById("density");
-//     let viscosity = document.getElementById("viscosity");
-//     let package = document.getElementById("packaging");
-//     let size = document.getElementById("packsize");
-//     let unit = document.getElementById("unit");
-//     let quantity = document.getElementById("quantity");
-
-//     let obj = {};
-//     obj["id"] = rowIdx; //chem_id
-//     obj["chemicalname"] = chemical.value;
-//     obj["Vender"] = vendor.value;
-//     obj["Density"] = density.value;
-//     obj["Viscosity"] = viscosity.value;
-//     obj["Packaging"] = package.value;
-//     obj["Pack size"] = size.value;
-//     obj["Unit"] = unit.value;
-//     obj["Quantity"] = quantity.value;
-//     arr.push(obj);
-    
-
-//     let tr = document.createElement("tr");
-//     tr.setAttribute("id", rowIdx++);
-
-//     for(val of Object.values(obj)){
-//         let td = document.createElement("td");
-//         td.innerHTML = val;
-//         tr.appendChild(td);
-//     }
-//     tableBody.appendChild(tr);
-
-//     chem_id.value="";
-//     chemical.value ="";
-//     vendor.value ="";
-//     density.value ="";
-//     viscosity.value = "";
-//     package.value = "";
-//     size.value = "";
-//     unit.value = "";
-//     quantity.value = "";
-    
-// })
-
-// //delete row functionality
-// var rows = document.getElementsByTagName("tr");
-// deleteBtn.addEventListener("click", ()=>{
-
-// })
-
-
-
-
+let selectedRow = [];
+let rowIdx = 1;
 
 
 document.addEventListener('DOMContentLoaded', loadFn, false);
 
-let sortCol;
-let sortAsc = false;
 const pageSize = 15;
 let curPage = 1;
 
 function loadFn() { 
 
-  document.querySelectorAll('#myTable thead tr th').forEach(t => {
-     t.addEventListener('click', sortTable, false);
-  });
-  
   nextBtn.addEventListener('click', nextPage, false);
   prevBtn.addEventListener('click', previousPage, false);
 }
@@ -141,7 +56,7 @@ function createTable() {
         if(index >= start && index < end) return true;
   }).forEach(c => {
      newRow += `<tr>
-     <td>${c["id"]}</td>
+     <td data-id="${c["id"]}">${c["id"]}</td>
      <td>${c["Chemical name"]}</td>
      <td>${c["Vender"]}</td>
      <td>${c["Density"]}</td>
@@ -151,9 +66,10 @@ function createTable() {
      <td>${c["Unit"]}</td>
      <td>${c["Quantity"]}</td>
      </tr>`;
+     
   });
   tableBody.innerHTML = newRow;
-  //console.log(newRow);
+  
 }
 createTable();
 localStorage.setItem('tableArray', JSON.stringify(arr));
@@ -161,19 +77,77 @@ localStorage.setItem('tableArray', JSON.stringify(arr));
 
 //sort functionality
 
-function sortTable(e) {
-  let thisSort = e.target.dataset.sort;
-  if(sortCol === thisSort) sortAsc = !sortAsc;
-  sortCol = thisSort;
-  console.log('sort dir is ', sortAsc);
-  arr.sort((a, b) => {
-    if(a[sortCol] < b[sortCol]) return sortAsc?1:-1;
-    if(a[sortCol] > b[sortCol]) return sortAsc?-1:1;
-    return 0;
-  });
-  createTable();
-}
+ function sortTable(n) {
+    var rows, i, x, y, shouldSwitch, switching = true, sortDirection = "asc", switchcount = 0;
+    
+    while (switching) {
+      switching = false;
+      rows = tableEle.rows;
+      
+      for (i = 1; i < (rows.length - 1); i++) {
+        
+        shouldSwitch = false;
+        
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        
+        if (sortDirection == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            
+            shouldSwitch = true;
+            break;
+          }
+        } else if (sortDirection == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        
+        switchcount ++;
+      } else {
+        
+        if (switchcount == 0 && sortDirection == "asc") {
+          sortDirection = "desc";
+          switching = true;
+        }
+      }
+    }
+    
+    if(n==0 && sortDirection == "asc"){
+        arr.sort((a, b) => {
+            return a.id - b.id;
+        });
+        
+    } else if(n==0 && sortDirection == "desc"){
+        arr.reverse();
+        
+    }
+    if(n==1 && sortDirection == "asc"){
+        arr.sort(function(a, b) {
+            const A = a["Chemical name"].toUpperCase(); 
+            const B = b["Chemical name"].toUpperCase(); 
+            if (A < B) {
+              return -1;
+            }
+            if (A > B) {
+              return 1;
+            }
+          
+            return 0;
+          });
+        
+    } else if(n==1 && sortDirection=="desc"){
+        arr.reverse();
+         
+    }
 
+  }
 //pagination fxn
 
 function previousPage() {
@@ -188,7 +162,7 @@ function nextPage() {
 
 //add new Row
 document.getElementById("saveRow").addEventListener("click", ()=>{
-
+   
     let obj = {};
     obj["id"] = chem_id.value;
     obj["Chemical name"] = chemical.value;
@@ -202,7 +176,7 @@ document.getElementById("saveRow").addEventListener("click", ()=>{
     arr.push(obj);
 
     createTable();
-    selectRow();
+    console.log(arr);
 
     chem_id.value="";
     chemical.value ="";
@@ -226,24 +200,41 @@ document.getElementById("cancelRow").addEventListener("click", ()=>{
     unit.value = "";
     quantity.value = "";
 })
-//select a row
-var rowIdx;
 
-function selectRow(){
-    
-    for(var i = 1; i < tableEle.rows.length; i++){
-        tableEle.rows[i].onclick = function(){ 
-            if(typeof rowIdx !== "undefined"){
-                tableEle.rows[rowIdx].classList.toggle("selected");
+
+//select a row
+tableBody.addEventListener("click", (e)=>{
+    if(e.target.tagName == 'TD'){
+        let element = e.target.parentNode;
+        let td = element.firstElementChild;
+        let id = td.dataset.id;
+        
+        e.target.parentNode.classList.toggle("selected");
+        if(e.target.parentNode.classList.contains("selected")){
+            selectedRow.push(id);
+        } else{
+            selectedRow=selectedRow.filter((ele, i)=>{
+                if(ele!=id){
+                    return ele;
+                }
+            })
+        }
+        // console.log(selectedRow)
+    }
+})
+
+//move row
+function getSelectedRow(){
+                
+                for(var i = 1; i < tableEle.rows.length; i++)
+                {
+                    tableEle.rows[i].onclick = function()
+                    {
+                        rowIdx = this.rowIndex;
+                    };
+                }      
             }
-                       
-            rowIdx = this.rowIndex;
-            this.classList.toggle("selected");
-            //console.log(rowIdx, tableEle.rows.length)
-        };
-    }                 
-}
-selectRow();
+            getSelectedRow();
 
 //move row up
 upBtn.addEventListener("click", ()=>{
@@ -251,8 +242,12 @@ upBtn.addEventListener("click", ()=>{
     parent = rowEle[rowIdx].parentNode;
     if(rowIdx > 1){
         parent.insertBefore(rowEle[rowIdx],rowEle[rowIdx - 1]);
+        let temp = arr[rowIdx-1];
+        arr[rowIdx-1] = arr[rowIdx-2];
+        arr[rowIdx-2] = temp;
         rowIdx--;
     }
+    console.log(arr);
 })
 
 
@@ -267,14 +262,36 @@ downBtn.addEventListener("click", ()=>{
         arr[rowIdx-1] = temp;
         rowIdx++;
     }
+    console.log(arr);
 })
 
 
 //delete row
 deleteBtn.addEventListener("click", ()=>{
-    tableEle.deleteRow(rowIdx);
-    arr.splice(rowIdx-1, 1);
-    //console.log(arr);
+    // tableEle.deleteRow(rowIdx);
+    // arr.splice(rowIdx-1, 1);
+    // //console.log(arr);
+    for(let i=0; i<arr.length; i++){
+        for(let j =0; j<selectedRow.length; j++){
+            if(arr[i] != null && arr[i]["id"]==selectedRow[j]){
+                arr[i] = null;
+                selectedRow[j] = null;
+            }
+        }
+    }
+    
+    arr = arr.filter((ele)=>{
+        if(ele != null){
+            return ele;
+        }
+    });
+    selectedRow = selectedRow.filter((ele)=>{
+        if(ele != null){
+            return ele;
+        }
+    });
+    createTable();
+    
     
 })
 
@@ -288,5 +305,5 @@ refreshBtn.addEventListener("click", ()=>{
 //save changes
 saveBtn.addEventListener("click", ()=>{
     localStorage.setItem('tableArray', JSON.stringify(arr));
-    selectRow();
+
 })
