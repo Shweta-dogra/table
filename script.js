@@ -234,15 +234,13 @@ tableBody.addEventListener("click", (e)=>{
 //move row
 function getSelectedRow(){
                 
-                for(var i = 1; i < tableEle.rows.length; i++)
-                {
-                    tableEle.rows[i].onclick = function()
-                    {
-                        rowIdx = this.rowIndex;
-                    };
-                }      
-            }
-            getSelectedRow();
+    for(var i = 1; i < tableEle.rows.length; i++){
+        tableEle.rows[i].onclick = function(){
+             rowIdx = this.rowIndex;
+        };
+    }      
+}
+getSelectedRow();
 
 //move row up
 upBtn.addEventListener("click", ()=>{
