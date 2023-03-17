@@ -32,3 +32,16 @@
 .bi-check-lg{
     color: gray;
 }
+
+input[type=number]{
+    outline: none;
+}
+input[type=number] {
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+  }
+input[type=number]:focus {
+    border: 3px solid #336ed5;
+  }

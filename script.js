@@ -68,7 +68,7 @@ function createTable() {
      <td data-id="${c["id"]}">${c["id"]}</td>
      <td>${c["Chemical name"]}</td>
      <td>${c["Vender"]}</td>
-     <td contentEditable><input class="input" type="Number" value="${c["Density"]}" onChange="changeFn(this)" /></td>
+     <td><input class="input" type="Number" value="${c["Density"]}" onChange="changeFn(this)" /></td>
      <td><input type="Number" value="${c["Viscosity"]}"  onChange="changeFn(this)"/></td>
      <td>${c["Packaging"]}</td>
      <td>${c["Pack size"]}</td>
@@ -277,9 +277,6 @@ downBtn.addEventListener("click", ()=>{
 
 //delete row
 deleteBtn.addEventListener("click", ()=>{
-    // tableEle.deleteRow(rowIdx);
-    // arr.splice(rowIdx-1, 1);
-    // //console.log(arr);
     for(let i=0; i<arr.length; i++){
         for(let j =0; j<selectedRow.length; j++){
             if(arr[i] != null && arr[i]["id"]==selectedRow[j]){
