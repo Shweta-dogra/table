@@ -228,7 +228,6 @@ tableBody.addEventListener("click", (e)=>{
                 }
             })
         }
-        // console.log(selectedRow)
     }
 })
 
@@ -318,8 +317,6 @@ saveBtn.addEventListener("click", ()=>{
 function changeFn(e){
     let tableId = e.parentNode.parentNode.firstElementChild.innerText;
     let colId = e.parentNode.cellIndex;
-    // console.log(e.parentNode.cellIndex);
-    // console.log(e.value);
 
     for(let i =0; i<arr.length; i++){
         if(colId == 3 && arr[i]["id"]== tableId){
