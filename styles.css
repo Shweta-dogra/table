@@ -26,3 +26,9 @@
 .selected{
     background-color: aquamarine;
 }
+.section{
+    padding: 0 1rem;
+}
+.bi-check-lg{
+    color: gray;
+}

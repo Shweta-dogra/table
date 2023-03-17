@@ -29,7 +29,7 @@
             <table id="myTable" class="table ">
                 <thead>
                     <tr>
-                        <!-- <th>#</th> -->
+                        <!-- <th><i class="bi bi-check-lg"></i></th> -->
                         <th onclick="sortTable(0)">id</th>
                         <th onclick="sortTable(1)">Chemical name</th>
                         <th onclick="sortTable(1)">Vendor</th>
@@ -61,15 +61,15 @@
                 <div class="modal-body">
                   
                     <label for="idx">id: </label>
-                    <input type="text" name="id" value="" id="idx" /><br/>
+                    <input type="number" name="id" value="" id="idx" /><br/>
                     <label for="Chem">Chemical name: </label>
                     <input type="text" name="chemical" value="" id="Chem" /><br/>
                     <label for="vendor">Vendor: </label>
                     <input type="text" name="vendor" value="" id="vendor" /><br/>
                     <label for="density">Density: </label>
-                    <input type="text" name="density" value="" id="density" /><br/>
+                    <input type="number" name="density" value="" id="density" /><br/>
                     <label for="viscosity">Viscosity: </label>
-                    <input type="text" name="viscosity" value="" id="viscosity" /><br/>
+                    <input type="number" name="viscosity" value="" id="viscosity" /><br/>
                     <label for="packaging">Packaging: </label>
                     <input type="text" name="packaging" value="" id="packaging" /><br/>
                     <label for="packsize">Pack size: </label>
@@ -77,7 +77,7 @@
                     <label for="unit">Unit: </label>
                     <input type="text" name="unit" value="" id="unit" /><br/>
                     <label for="quantity">Quantity: </label>
-                    <input type="text" name="quantity" value="" id="quantity" />
+                    <input type="number" name="quantity" value="" id="quantity" />
                 
                 </div>
           

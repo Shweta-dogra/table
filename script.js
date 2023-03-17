@@ -9,6 +9,7 @@ const refreshBtn = document.querySelector("#refresh");
 const saveBtn = document.querySelector("#save");
 const nextBtn = document.querySelector('#nextButton');
 const prevBtn = document.querySelector('#prevButton');
+const editBtn = document.querySelectorAll(".editBtn");
 
 //new row elements
 let chemical = document.getElementById("Chem");
@@ -56,7 +57,7 @@ function loadFn() {
 
 
 function createTable() {
-  
+    // <td><button class="editBtn fxnBtn"><i class="bi bi-check-lg"></i></button></td>
   let newRow = '';
   arr.filter((row, index) => {
         let start = (curPage-1)*pageSize;
@@ -67,12 +68,12 @@ function createTable() {
      <td data-id="${c["id"]}">${c["id"]}</td>
      <td>${c["Chemical name"]}</td>
      <td>${c["Vender"]}</td>
-     <td>${c["Density"]}</td>
-     <td>${c["Viscosity"]}</td>
+     <td contentEditable><input class="input" type="Number" value="${c["Density"]}" onChange="changeFn(this)" /></td>
+     <td><input type="Number" value="${c["Viscosity"]}"  onChange="changeFn(this)"/></td>
      <td>${c["Packaging"]}</td>
      <td>${c["Pack size"]}</td>
      <td>${c["Unit"]}</td>
-     <td>${c["Quantity"]}</td>
+     <td><input type="Number" value="${c["Quantity"]}" onChange="changeFn(this)"/></td>
      </tr>`;
      
   });
@@ -315,3 +316,25 @@ saveBtn.addEventListener("click", ()=>{
     localStorage.setItem('tableArray', JSON.stringify(arr));
 
 })
+
+//edit row
+function changeFn(e){
+    let tableId = e.parentNode.parentNode.firstElementChild.innerText;
+    let colId = e.parentNode.cellIndex;
+    // console.log(e.parentNode.cellIndex);
+    // console.log(e.value);
+
+    for(let i =0; i<arr.length; i++){
+        if(colId == 3 && arr[i]["id"]== tableId){
+            arr[i]["Density"] = e.value;
+        }
+        if(colId == 4 && arr[i]["id"]== tableId){
+            arr[i]["Viscosity"] = e.value;
+        }
+        if(colId == 8 && arr[i]["id"]== tableId){
+            arr[i]["Quantity"] = e.value;
+        }
+    }
+}
+
+
